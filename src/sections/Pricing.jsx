@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Element } from "react-scroll";
+import CountUp from "react-countup";
+
 import clsx from "clsx";
 
+import { Button } from "../components";
 import { plans } from "../constants/index.js";
 
 const Pricing = () => {
@@ -58,7 +61,6 @@ const Pricing = () => {
           </div>
 
           {/* Pricing Section */}
-
           <div className=" scroll-hide relative z-2 -mt-12 flex items-start max-xl:gap-5 max-xl:overflow-auto max-xl:pt-6">
             {plans.map(
               (
@@ -74,6 +76,8 @@ const Pricing = () => {
                 },
                 index
               ) => (
+                /* index === 1 - Primary plan */
+
                 <div
                   className="pricing-plan_first pricing-plan_last pricing-plan_odd pricing-plan_even relative border-2 p-7 max-xl:min-w-80 max-lg:rounded-3xl xl:w-[calc(33.33%+2px)]"
                   key={id}
@@ -111,7 +115,65 @@ const Pricing = () => {
                     >
                       {title}
                     </div>
+
+                    <div className="relative z-2 flex items-center justify-center ">
+                      {/* Amount container */}
+                      <div
+                        className={clsx(
+                          "h-num flex items-start",
+                          index === 1 ? "text-p3" : "text-p4"
+                        )}
+                      >
+                        $
+                        <CountUp
+                          start={priceMonthly}
+                          end={monthly ? priceMonthly : priceYearly}
+                          duration={0.4}
+                          useEasing={false}
+                          preserveValue
+                        />
+                      </div>
+                      {/* per month container */}
+                      <div className="small-1 relative top-3 ml-1 uppercase">
+                        / mo
+                      </div>
+                    </div>
                   </div>
+
+                  <div
+                    className={clsx(
+                      "body-1 relative z-2 mb-10 w-full border-b-s2 pb-9 text-center text-p4",
+                      index === 1 && "border-b"
+                    )}
+                  >
+                    {caption}
+                  </div>
+                  {/* Pricing Features */}
+                  <ul className="mx-auto space-y-4 xl:px-7">
+                    {features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="relative flex items-center gap-5"
+                      >
+                        <img
+                          src="/images/check.png"
+                          alt="check"
+                          className="size-10 object-contain"
+                        />
+                        <p className="flex-1">{feature}</p>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Pricing CTA Button */}
+                  <div className="mt-10 flex w-full justify-center">
+                    <Button icon={icon}>Get Started</Button>
+                  </div>
+                  {index === 1 && (
+                    <p className="small-compact mt-9 text-center text-p3 before:content-['-'] before:mx-2.5 after:mx-2.5 after:content-['-']">
+                      Limited time offer
+                    </p>
+                  )}
                 </div>
               )
             )}
