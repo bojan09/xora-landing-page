@@ -5,7 +5,7 @@ import CountUp from "react-countup";
 import clsx from "clsx";
 
 import { Button } from "../components";
-import { plans } from "../constants/index.js";
+import { plans } from "../constants";
 
 const Pricing = () => {
   const [monthly, setMonthly] = useState(false);
